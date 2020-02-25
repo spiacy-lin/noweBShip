@@ -34,5 +34,9 @@ namespace noweBShip
 		{
 			return this.Available == Mark.NOT_SET;
 		}
+		public Square.Mark GetFront()
+		{
+			return Front;
+		}
 	}
 }

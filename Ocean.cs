@@ -7,7 +7,7 @@ namespace noweBShip
     class Ocean 
 	{
     	
-		private Square[,] Board = new Square[10,10];
+		public Square[,] Board = new Square[10,10];
 		public Ocean()
 		{
 			for(int x = 0; x<10; x++)
