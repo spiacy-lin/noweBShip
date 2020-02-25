@@ -6,7 +6,8 @@ namespace noweBShip
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Battleship!");
+            Game game = new Game();
+            game.StartGame();
         }
     }
 }
