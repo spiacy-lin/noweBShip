@@ -11,6 +11,9 @@ namespace noweBShip
         public string Name { get; set; }
         public int Width { get; set; }
         public List<string> Cover {get; set;}
-        
+
+        public abstract void ManFillCover();
+        public abstract void AutoFillCover();
     }
+
 }

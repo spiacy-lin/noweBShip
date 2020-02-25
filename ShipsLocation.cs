@@ -23,5 +23,6 @@ namespace noweBShip
             Ship destr = new Destroyer();
             Ships.Add(destr);
         }
+        
      }
 }

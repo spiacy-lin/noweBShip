@@ -15,13 +15,40 @@ namespace noweBShip
             ShipsLocation EnLocation = new ShipsLocation();
             ShipsLocation MyLocation = new ShipsLocation();
             // placement enemy ships in Ships (List)
-            foreach (Ship item in EnLocation.Ships)
+            
+            Console.WriteLine("If manualy placement of enemy ships - press Y:");
+            string choice = Console.ReadLine();
+            if (choice == "Y")
             {
-                string type = item.Name;
-                if (type == "CARRIER")
+                foreach (Ship item in EnLocation.Ships)
                 {
-                    item.Cover[0] = ""
-                } 
+                    item.ManFillCover();
+                }
+            }
+            else
+            {
+                foreach (Ship item in EnLocation.Ships)
+                {
+                    item.AutoFillCover();
+                }
+            }
+
+            // placement my ships in Ships(List)
+            Console.WriteLine("If manualy placement of my ships - press Y:");
+            string choice1 = Console.ReadLine();
+            if (choice1 == "Y")
+            {
+                foreach (Ship item in MyLocation.Ships)
+                {
+                    item.ManFillCover();
+                }
+            }
+            else
+            {
+                foreach (Ship item in MyLocation.Ships)
+                {
+                    item.AutoFillCover();
+                }
             }
 		}
 
