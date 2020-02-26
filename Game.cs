@@ -89,8 +89,82 @@ namespace noweBShip
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    line1 += "~ ";
-                    line2 += "o ";
+                    // put appropriate char to front - enemy
+                    string e = en[i,j].GetFront().ToString();
+                    if (e == "CARRIER")
+                    {
+                        line1 += "A ";
+                    }
+                    else if (e == "BATTLESHIP")
+                    {
+                        line1 += "B ";
+                    }
+                    else if (e == "CRUISER")
+                    {
+                        line1 += "C ";
+                    }
+                    else if (e == "SUBMARINE")
+                    {
+                        line1 += "S ";
+                    }
+                    else if (e == "DESTROYER")
+                    {
+                        line1 += "D ";
+                    }
+                    else if (e == "WATER")
+                    {
+                        line1 += "~ ";
+                    }
+                    else if (e == "MISSED")
+                    {
+                        line1 += "o ";
+                    }
+                    else if (e == "HIT")
+                    {
+                        line1 += "X ";
+                    }
+                    else
+                    {
+                        line1 += "?";
+                    }
+                    // put appropriate char to front - my
+                    string m = my[i,j].GetFront().ToString();
+                    if (m == "CARRIER")
+                    {
+                        line2 += "A ";
+                    }
+                    else if (m == "BATTLESHIP")
+                    {
+                        line2 += "B ";
+                    }
+                    else if (m == "CRUISER")
+                    {
+                        line2 += "C ";
+                    }
+                    else if (m == "SUBMARINE")
+                    {
+                        line2 += "S ";
+                    }
+                    else if (m == "DESTROYER")
+                    {
+                        line2 += "D ";
+                    }
+                    else if (m == "WATER")
+                    {
+                        line2 += "~ ";
+                    }
+                    else if (m == "MISSED")
+                    {
+                        line2 += "o ";
+                    }
+                    else if (m == "HIT")
+                    {
+                        line2 += "X ";
+                    }
+                    else
+                    {
+                        line2 += "?";
+                    }
                 }
                 Console.Write("{0}", (char)(65+i));
                 Console.WriteLine(" |" + line1 + "|     |" + line2 + "| ");
