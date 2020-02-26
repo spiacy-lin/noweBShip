@@ -27,7 +27,7 @@ namespace noweBShip
                 }
             }
             /*
-            // placement enemy ships in Ships (List)
+            // fillup contenents of cover in enemy ships /before empty list
             Console.WriteLine("If manualy placement of enemy ships - press Y:");
             string choice = Console.ReadLine();
             if (choice == "Y")
@@ -43,9 +43,9 @@ namespace noweBShip
                 {
                     item.AutoFillCover();
                 }
-            }
+            }*/
 
-            // placement my ships in Ships(List)
+            // fillup contenents of cover in my ships /before empty list
             Console.WriteLine("If manualy placement of my ships - press Y:");
             string choice1 = Console.ReadLine();
             if (choice1 == "Y")
@@ -61,7 +61,25 @@ namespace noweBShip
                 {
                     item.AutoFillCover();
                 }
+            }
+
+            string temp;
+            temp = MyLocation.Ships[0].Cover[1];
+            Console.WriteLine(temp);
+            /*
+            // placement ships on myOcean squares using cover list
+            foreach (Ship item in MyLocation.Ships)
+            {
+                //read in loop Cover list element
+                string temp = "";
+                for (int i = 0; i < item.Cover.Count; i++)
+                {
+                    temp = item.Cover[i];
+                    Console.WriteLine("temp");
+                    Console.ReadKey();
+                }
             }*/
+
             Console.WriteLine("The game preparation time is over. Press any button to start battle");
             Console.ReadKey();
             Console.Clear();
