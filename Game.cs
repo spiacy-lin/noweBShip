@@ -26,7 +26,7 @@ namespace noweBShip
                     MyOcean.Board[i,j].SetBack(Square.Mark.MISSED);
                 }
             }
-            /*
+            
             // fillup contenents of cover in enemy ships /before empty list
             Console.WriteLine("If manualy placement of enemy ships - press Y:");
             string choice = Console.ReadLine();
@@ -43,7 +43,23 @@ namespace noweBShip
                 {
                     item.AutoFillCover();
                 }
-            }*/
+            }
+
+            // place ships on enemy Ocean
+            int counter1 = 0;
+            foreach (Ship item in EnLocation.Ships)
+            {
+                //read in loop Cover list element
+                string temp = "";
+                for (int i = 0; i < item.Cover.Count; i++)
+                {
+                    temp = item.Cover[i];
+                    int x = (int)(temp[0])-65;
+                    int y = (int)(temp[1])-48;
+                    EnOcean.Board[x,y].SetFront((Square.Mark)counter1);
+                }
+                counter1++;
+            }
 
             // fillup contenents of cover in my ships /before empty list
             Console.WriteLine("If manualy placement of my ships - press Y:");
@@ -63,11 +79,8 @@ namespace noweBShip
                 }
             }
 
-            string temp;
-            temp = MyLocation.Ships[0].Cover[1];
-            Console.WriteLine(temp);
-            /*
-            // placement ships on myOcean squares using cover list
+            // place ships on myOcean
+            int counter = 0;
             foreach (Ship item in MyLocation.Ships)
             {
                 //read in loop Cover list element
@@ -75,10 +88,12 @@ namespace noweBShip
                 for (int i = 0; i < item.Cover.Count; i++)
                 {
                     temp = item.Cover[i];
-                    Console.WriteLine("temp");
-                    Console.ReadKey();
+                    int x = (int)(temp[0])-65;
+                    int y = (int)(temp[1])-48;
+                    MyOcean.Board[x,y].SetFront((Square.Mark)counter);
                 }
-            }*/
+                counter++;
+            }
 
             Console.WriteLine("The game preparation time is over. Press any button to start battle");
             Console.ReadKey();
