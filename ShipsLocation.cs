@@ -8,7 +8,7 @@ namespace noweBShip
     public class ShipsLocation
      {
         public List<Ship> Ships { get; set; }
-
+        public bool [,] Plansza = new bool [10,10];
         public ShipsLocation()
         {
             Ships = new List<Ship>();

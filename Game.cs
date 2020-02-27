@@ -56,7 +56,7 @@ namespace noweBShip
                     temp = item.Cover[i];
                     int x = (int)(temp[0])-65;
                     int y = (int)(temp[1])-48;
-                    EnOcean.Board[x,y].SetFront((Square.Mark)counter1);
+                    EnOcean.Board[x,y].SetBack((Square.Mark)counter1);
                 }
                 counter1++;
             }
