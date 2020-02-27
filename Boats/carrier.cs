@@ -24,7 +24,28 @@ namespace noweBShip
         }
         public override void AutoFillCover()
         {
-                        
-        }
+            /*bool end = true;
+            while (end)
+            {
+                int orientation = random.Next(2);
+                int x = random.Next(10);
+                int y = random.Next(10);
+                if (orientation == 0)  // horizontal
+                {
+                    
+                    if (y >= 6) break; //sprawdzamy czy się mieści na planszy
+                    for (int i = y; i < y + 5; i++)  //sprawdzamy czy jest dostepny
+                    {
+                        if ()
+                    }
+
+                }
+                else                    //vertical
+                {
+
+                }
+            }*/
+            
+        }    
     }
 }

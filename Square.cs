@@ -8,7 +8,8 @@ namespace noweBShip
 	{
     	private Square.Mark Front;  // front mark of an instance of class Square
 		private Square.Mark Back;  // back mark of an instance of class Square
-		public enum Mark {CARRIER, BATTLESHIP, CRUISER,  SUBMARINE, DESTROYER, WATER, MISSED, HIT, SUNK}
+		private Square.Mark Avail;  // 
+		public enum Mark {CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER, WATER, MISSED, HIT, SUNK, EMPTY}
 		
 		// class method to switch sides of square (up <=> down)
 		public void upsideDown()
@@ -27,11 +28,19 @@ namespace noweBShip
 		{
 			this.Back = value;
 		}
+		public void SetAvail(Square.Mark value)
+		{
+			this.Avail = value;
+		}
 		
 		// method to check is square is available (not_set) : helful to replace ships
 		public Square.Mark GetFront()
 		{
 			return Front;
+		}
+		public Square.Mark GetAvail()
+		{
+			return Avail;
 		}
 	}
 }

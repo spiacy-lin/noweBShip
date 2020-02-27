@@ -15,6 +15,9 @@ namespace noweBShip
             ShipsLocation EnLocation = new ShipsLocation();
             ShipsLocation MyLocation = new ShipsLocation();
             
+            
+            
+            
             // initial fillup of enemy and my Ocean(Squeres)
             for (int i = 0; i < 10; i++)
             {

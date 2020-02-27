@@ -8,10 +8,10 @@ namespace noweBShip
 {
     public abstract class Ship
     {
+        public Random random = new Random();
         public string Name { get; set; }
         public int Width { get; set; }
         public List<string> Cover {get; set;}
-        Random random = new Random();
         public abstract void ManFillCover();
         public abstract void AutoFillCover();
     }
