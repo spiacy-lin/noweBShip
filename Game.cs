@@ -15,9 +15,6 @@ namespace noweBShip
             ShipsLocation EnLocation = new ShipsLocation();
             ShipsLocation MyLocation = new ShipsLocation();
             
-            
-            
-            
             // initial fillup of enemy and my Ocean(Squeres)
             for (int i = 0; i < 10; i++)
             {
@@ -25,13 +22,15 @@ namespace noweBShip
                 {
                     EnOcean.Board[i,j].SetFront(Square.Mark.WATER);
                     EnOcean.Board[i,j].SetBack(Square.Mark.MISSED);
+                    EnOcean.Board[i,j].SetAvail(Square.Mark.EMPTY);
                     MyOcean.Board[i,j].SetFront(Square.Mark.WATER);
                     MyOcean.Board[i,j].SetBack(Square.Mark.MISSED);
+                    MyOcean.Board[i,j].SetAvail(Square.Mark.EMPTY);
                 }
             }
             
             // fillup contenents of cover in enemy ships /before empty list
-            Console.WriteLine("If manualy placement of enemy ships - press Y:");
+            Console.WriteLine("Would you like manualy place enemy ships - press Y:");
             string choice = Console.ReadLine();
             if (choice == "Y")
             {
@@ -40,14 +39,9 @@ namespace noweBShip
                     item.ManFillCover();
                 }
             }
-            else
-            {
-                foreach (Ship item in EnLocation.Ships)
-                {
-                    item.AutoFillCover();
-                }
-            }
+            // automatic placement of enemy ships
 
+            
             // place ships on enemy Ocean
             int counter1 = 0;
             foreach (Ship item in EnLocation.Ships)
@@ -74,14 +68,9 @@ namespace noweBShip
                     item.ManFillCover();
                 }
             }
-            else
-            {
-                foreach (Ship item in MyLocation.Ships)
-                {
-                    item.AutoFillCover();
-                }
-            }
+            // automatic placement of my ships
 
+            
             // place ships on myOcean
             int counter = 0;
             foreach (Ship item in MyLocation.Ships)
