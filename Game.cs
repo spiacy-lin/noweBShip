@@ -37,12 +37,12 @@ namespace noweBShip
                     item.ManFillCover();
                     
                 }
-                PlaceShip(EnLocation, EnOcean);
+                PlaceShipE(EnLocation, EnOcean);
             }
             else
             {
                AutoPlacement(EnLocation);
-               PlaceShip(EnLocation, EnOcean); 
+               PlaceShipE(EnLocation, EnOcean); 
             }
                         
             // fillup contenents of cover in my ships /before empty list
@@ -54,12 +54,12 @@ namespace noweBShip
                 {
                     item.ManFillCover();
                 }
-                PlaceShip(MyLocation, MyOcean);
+                PlaceShipM(MyLocation, MyOcean);
             }
             else
             {
                 AutoPlacement(MyLocation);
-                PlaceShip(MyLocation, MyOcean);
+                PlaceShipM(MyLocation, MyOcean);
             }
             
             Console.WriteLine("The game preparation time is over. Press any button to start battle");
@@ -325,7 +325,7 @@ namespace noweBShip
             return a1lista;
         }
 
-        public void PlaceShip(ShipsLocation loka, Ocean ocea)
+        public void PlaceShipM(ShipsLocation loka, Ocean ocea)
         {
             int counter = 0;
             foreach (Ship item in loka.Ships)
@@ -338,6 +338,24 @@ namespace noweBShip
                     int x = (int)(temp[0])-65;
                     int y = (int)(temp[1])-48;
                     ocea.Board[x,y].SetFront((Square.Mark)counter);
+                }
+                counter++;
+            }
+        }
+
+        public void PlaceShipE(ShipsLocation loka, Ocean ocea)
+        {
+            int counter = 0;
+            foreach (Ship item in loka.Ships)
+            {
+                //read in loop Cover list element
+                string temp = "";
+                for (int i = 0; i < item.Cover.Count; i++)
+                {
+                    temp = item.Cover[i];
+                    int x = (int)(temp[0])-65;
+                    int y = (int)(temp[1])-48;
+                    ocea.Board[x,y].SetBack((Square.Mark)counter);
                 }
                 counter++;
             }
