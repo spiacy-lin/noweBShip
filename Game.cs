@@ -28,41 +28,25 @@ namespace noweBShip
             }
             
             // fillup contenents of cover in enemy ships /before empty list
-            Console.WriteLine("If manualy placement of enemy ships - press Y:");
+            Console.WriteLine("Would you like to manualy place enemy ships - press Y:");
             string choice = Console.ReadLine();
             if (choice == "Y")
             {
                 foreach (Ship item in EnLocation.Ships)
                 {
                     item.ManFillCover();
+                    
                 }
+                PlaceShipE(EnLocation, EnOcean);
             }
             else
             {
-                foreach (Ship item in EnLocation.Ships)
-                {
-                    item.AutoFillCover();
-                }
+               AutoPlacement(EnLocation);
+               PlaceShipE(EnLocation, EnOcean); 
             }
-
-            // place ships on enemy Ocean
-            int counter1 = 0;
-            foreach (Ship item in EnLocation.Ships)
-            {
-                //read in loop Cover list element
-                string temp = "";
-                for (int i = 0; i < item.Cover.Count; i++)
-                {
-                    temp = item.Cover[i];
-                    int x = (int)(temp[0])-65;
-                    int y = (int)(temp[1])-48;
-                    EnOcean.Board[x,y].SetFront((Square.Mark)counter1);
-                }
-                counter1++;
-            }
-
+                        
             // fillup contenents of cover in my ships /before empty list
-            Console.WriteLine("If manualy placement of my ships - press Y:");
+            Console.WriteLine("Would you like to manualy place your ships - press Y:");
             string choice1 = Console.ReadLine();
             if (choice1 == "Y")
             {
@@ -70,34 +54,17 @@ namespace noweBShip
                 {
                     item.ManFillCover();
                 }
+                PlaceShipM(MyLocation, MyOcean);
             }
             else
             {
-                foreach (Ship item in MyLocation.Ships)
-                {
-                    item.AutoFillCover();
-                }
+                AutoPlacement(MyLocation);
+                PlaceShipM(MyLocation, MyOcean);
             }
-
-            // place ships on myOcean
-            int counter = 0;
-            foreach (Ship item in MyLocation.Ships)
-            {
-                //read in loop Cover list element
-                string temp = "";
-                for (int i = 0; i < item.Cover.Count; i++)
-                {
-                    temp = item.Cover[i];
-                    int x = (int)(temp[0])-65;
-                    int y = (int)(temp[1])-48;
-                    MyOcean.Board[x,y].SetFront((Square.Mark)counter);
-                }
-                counter++;
-            }
-
+            
             Console.WriteLine("The game preparation time is over. Press any button to start battle");
             Console.ReadKey();
-            Console.Clear();
+            //Console.Clear();
             DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
 
             // Blok Łukasza
@@ -205,6 +172,193 @@ namespace noweBShip
                 line2 = "";
             }
             Console.WriteLine("  |--------------------|     |--------------------|");
+        }
+
+        public void AutoPlacement(ShipsLocation lok)
+        {
+            Random random = new Random();
+            int size = 5;
+            List<int> intlist = new List<int>();
+            List<string> strlist = new List<string>();
+                        
+            for (int index = 0; index < 5; index++) // po wszystkich statkach
+            {
+                bool not_find = true;
+                while (not_find)
+                {
+                    int orient = random.Next(2);
+                    int x = random.Next(10);
+                    int y = random.Next(10);
+                    if (orient == 0)  //horizontal
+                    {
+                        if ( y < 11-size)
+                        {
+                            int ileh = 0;
+                            for (int s = y; s< y+size; s++)
+                            {
+                                if (!lok.Plansza[x,s])
+                                {
+                                    ileh++;
+                                    intlist.Add(x);
+                                    intlist.Add(s); 
+                                }
+                            }
+                            if (ileh == size)
+                            {
+                                strlist = Transformacja(intlist);
+                                lok.Ships[index].Cover = Transformacja1(strlist);
+                                string fn = strlist[0];
+                                int a = (int)fn[0] - 48;
+                                int b = (int)fn[1] - 48;
+                                for (int i = a-1; i < a+2; i++)
+                                {
+                                    for (int j = b-1; j< b+size+1; j++)
+                                    {
+                                        if ((i>=0 && i<=9) && (j>=0 && j <=9))
+                                        {
+                                            lok.Plansza[i,j] = true;
+                                        }
+                                    }
+                                }
+                                not_find = false;
+                                intlist.Clear();
+                                strlist.Clear();
+                            }
+                            else
+                            {
+                                ileh = 0;
+                                intlist.Clear();
+                            }
+                        }
+                    }
+                    else if (orient == 1)  // vertical
+                    {
+                        if ( x < 11-size)
+                        {
+                            int ilev = 0;
+                            for (int s = x; s< x+size; s++)
+                            {
+                                if (!lok.Plansza[s,y])
+                                {
+                                    ilev++;
+                                    intlist.Add(s);
+                                    intlist.Add(y); 
+                                }
+                            }
+                            if (ilev == size)
+                            {
+                                strlist = Transformacja(intlist);
+                                lok.Ships[index].Cover = Transformacja1(strlist);
+                                string fn = strlist[0];
+                                int a = (int)fn[0] - 48;
+                                int b = (int)fn[1] - 48;
+                                for (int i = a-1; i < a+size+1; i++)
+                                {
+                                    for (int j = b-1; j< b+2; j++)
+                                    {
+                                        if ((i>=0 && i<=9) && (j>=0 && j <=9))
+                                        {
+                                            lok.Plansza[i,j] = true;
+                                        }
+                                    }
+                                }
+                                not_find = false;
+                                intlist.Clear();
+                                strlist.Clear();
+                            }
+                            else
+                            {
+                                ilev = 0;
+                                intlist.Clear();
+                            }
+                        }
+                    }
+                }
+                size --;
+                //stop++;
+            }
+        }
+        
+        List<string> Transformacja(List<int> lista)
+        {
+            List<string> strlista = new List<string>();
+            string together = "";
+            int counter = 0;
+            for (int i = 0; i < lista.Count; i++)
+            {
+                counter++;
+                together += lista[i].ToString();
+                if (counter == 2)
+                {
+                    strlista.Add(together);
+                    counter = 0;
+                    together = "";
+                }
+            }
+            return strlista;
+        }
+        
+        List<string> Transformacja1(List<string> lista)
+        {
+            char first;
+            char[] initial = new char[2];
+            List<string> a1lista = new List<string>();
+            foreach (string item in lista)
+            {
+                first = item[0];
+                
+                if (first == '0') first = 'A';
+                if (first == '1') first = 'B';
+                if (first == '2') first = 'C';
+                if (first == '3') first = 'D';
+                if (first == '4') first = 'E';
+                if (first == '5') first = 'F';
+                if (first == '6') first = 'G';
+                if (first == '7') first = 'H';
+                if (first == '8') first = 'I';
+                if (first == '9') first = 'J';
+                initial[0] = first;
+                initial[1] = item[1];
+                string s = new string(initial);
+                a1lista.Add(s);
+            }
+            return a1lista;
+        }
+
+        public void PlaceShipM(ShipsLocation loka, Ocean ocea)
+        {
+            int counter = 0;
+            foreach (Ship item in loka.Ships)
+            {
+                //read in loop Cover list element
+                string temp = "";
+                for (int i = 0; i < item.Cover.Count; i++)
+                {
+                    temp = item.Cover[i];
+                    int x = (int)(temp[0])-65;
+                    int y = (int)(temp[1])-48;
+                    ocea.Board[x,y].SetFront((Square.Mark)counter);
+                }
+                counter++;
+            }
+        }
+
+        public void PlaceShipE(ShipsLocation loka, Ocean ocea)
+        {
+            int counter = 0;
+            foreach (Ship item in loka.Ships)
+            {
+                //read in loop Cover list element
+                string temp = "";
+                for (int i = 0; i < item.Cover.Count; i++)
+                {
+                    temp = item.Cover[i];
+                    int x = (int)(temp[0])-65;
+                    int y = (int)(temp[1])-48;
+                    ocea.Board[x,y].SetBack((Square.Mark)counter);
+                }
+                counter++;
+            }
         }
     }
 }
