@@ -18,7 +18,7 @@ namespace noweBShip
         {
             string[] strcover = new string[5];
             Console.WriteLine("Enter CARRIER occupied coords (ex. B1,B2,B3,B4,B5):");
-            string c = Console.ReadLine();
+            string c = Console.ReadLine().ToUpper();
             strcover = c.Split(",", 5, StringSplitOptions.RemoveEmptyEntries);
             Cover = strcover.OfType<string>().ToList();
         }

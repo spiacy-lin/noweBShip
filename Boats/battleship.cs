@@ -18,7 +18,7 @@ namespace noweBShip
         {
             string[] strcover = new string[4];
             Console.WriteLine("Enter BATTLESHIP occupied coords (ex. B1,B2,B3,B4):");
-            string c = Console.ReadLine();
+            string c = Console.ReadLine().ToUpper();
             strcover = c.Split(",", 4, StringSplitOptions.RemoveEmptyEntries);
             Cover = strcover.OfType<string>().ToList();
         }

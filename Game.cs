@@ -29,7 +29,7 @@ namespace noweBShip
             
             // fillup contenents of cover in enemy ships /before empty list
             Console.WriteLine("Would you like to manualy place enemy ships - press Y:");
-            string choice = Console.ReadLine();
+            string choice = Console.ReadLine().ToUpper();
             if (choice == "Y")
             {
                 foreach (Ship item in EnLocation.Ships)
@@ -47,7 +47,7 @@ namespace noweBShip
                         
             // fillup contenents of cover in my ships /before empty list
             Console.WriteLine("Would you like to manualy place your ships - press Y:");
-            string choice1 = Console.ReadLine();
+            string choice1 = Console.ReadLine().ToUpper();
             if (choice1 == "Y")
             {
                 foreach (Ship item in MyLocation.Ships)
@@ -64,15 +64,75 @@ namespace noweBShip
             
             Console.WriteLine("The game preparation time is over. Press any button to start battle");
             Console.ReadKey();
-            //Console.Clear();
+            
+            // GAME FLOW
+            Console.Clear();
+            Console.WriteLine("         Player vs. AI battleship game");
+            Console.WriteLine();
             DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
+            Console.WriteLine();
+            
+            bool nextTurn = true;
+            while(nextTurn)
+            {
+                // my turn
+                Console.Write("Enter hit coordinates (ex. D5): ");
+                string inputCoord = Console.ReadLine().ToUpper();
+                Char srow = inputCoord[0];
+                int x = 0;
+                if (srow == 'A'){x = 0;}
+                else if (srow == 'B') {x = 1;}
+                else if (srow == 'C') {x = 2;}
+                else if (srow == 'D') {x = 3;}
+                else if (srow == 'E') {x = 4;}
+                else if (srow == 'F') {x = 5;}
+                else if (srow == 'G') {x = 6;}
+                else if (srow == 'H') {x = 7;}
+                else if (srow == 'I') {x = 8;}
+                else if (srow == 'J') {x = 9;}
+                Char scol= inputCoord[1];
+                int y = scol - '0';
+                EnOcean.Board[x,y].upsideDown();  //przewrotka
+                                
+                if (EnOcean.Board[x,y].GetFront()== Square.Mark.CARRIER)
+                {
+                    Console.WriteLine("You hit Air-Carrier");
+                    Console.ReadKey();
+                }
+                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.BATTLESHIP)
+                {
+                    Console.WriteLine("You hit Battleship");
+                    Console.ReadKey();
+                }
+                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.CRUISER)
+                {
+                    Console.WriteLine("You hit Cruiser");
+                    Console.ReadKey();
+                }
+                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.SUBMARINE)
+                {
+                    Console.WriteLine("You hit Submarine");
+                    Console.ReadKey();
+                }
+                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.DESTROYER)
+                {
+                    Console.WriteLine("You hit Destroyer");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("You missed");
+                    Console.ReadKey();
+                }
 
-            // Blok Łukasza
-            // w pętli while - aż ktoś wygra (na razie ustaw na 20 ruchów, chodzi o zasada
-            // ruch gracza z klawiatury - przekrętka Square Front/Back na enemy Ocean
-            // ruch AI z wymyślonej strategii - przekrętka Square Front na my Ocean
-            // odświeżenie Console.Clear()
-            // DisplayTwoBoards(...)
+                Console.Clear();
+                Console.WriteLine("         Player vs. AI battleship game");
+                Console.WriteLine();
+                DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
+                Console.WriteLine();
+
+
+            }
 
             
 
@@ -167,7 +227,9 @@ namespace noweBShip
                     }
                 }
                 Console.Write("{0}", (char)(65+i));
-                Console.WriteLine(" |" + line1 + "|     |" + line2 + "| ");
+                Console.Write(" |" + line1 + "|   ");// + "|     |" + line2 + "| ");
+                Console.Write("{0}", (char)(65+i));
+                Console.WriteLine(" |" + line2 + "|");
                 line1 = "";
                 line2 = "";
             }

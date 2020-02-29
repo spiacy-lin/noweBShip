@@ -19,7 +19,7 @@ namespace noweBShip
         {
             string[] strcover = new string[3];
             Console.WriteLine("Enter SABMARINE occupied coords (ex. B1,B2):");
-            string c = Console.ReadLine();
+            string c = Console.ReadLine().ToUpper();
             strcover = c.Split(",", 2, StringSplitOptions.RemoveEmptyEntries);
             Cover = strcover.OfType<string>().ToList();
         }
