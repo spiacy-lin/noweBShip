@@ -97,32 +97,42 @@ namespace noweBShip
                 if (EnOcean.Board[x,y].GetFront()== Square.Mark.CARRIER)
                 {
                     Console.WriteLine("You hit Air-Carrier");
-                    Console.ReadKey();
+                    EnLocation.Ships[0].Width--;
+                    if (EnLocation.Ships[0].Width==0) {Console.WriteLine("Air-Carrier is sunken");}
+                    System.Threading.Thread.Sleep(2000);
                 }
                 else if (EnOcean.Board[x,y].GetFront()== Square.Mark.BATTLESHIP)
                 {
                     Console.WriteLine("You hit Battleship");
-                    Console.ReadKey();
+                    EnLocation.Ships[1].Width--;
+                    if (EnLocation.Ships[1].Width==0) {Console.WriteLine("Battleship is sunken");}
+                    System.Threading.Thread.Sleep(2000);
                 }
                 else if (EnOcean.Board[x,y].GetFront()== Square.Mark.CRUISER)
                 {
                     Console.WriteLine("You hit Cruiser");
-                    Console.ReadKey();
+                    EnLocation.Ships[2].Width--;
+                    if (EnLocation.Ships[2].Width==0) {Console.WriteLine("Cruiser is sunken");}
+                    System.Threading.Thread.Sleep(2000);
                 }
                 else if (EnOcean.Board[x,y].GetFront()== Square.Mark.SUBMARINE)
                 {
                     Console.WriteLine("You hit Submarine");
-                    Console.ReadKey();
+                    EnLocation.Ships[3].Width--;
+                    if (EnLocation.Ships[3].Width==0) {Console.WriteLine("Submarine is sunken");}
+                    System.Threading.Thread.Sleep(2000);
                 }
                 else if (EnOcean.Board[x,y].GetFront()== Square.Mark.DESTROYER)
                 {
                     Console.WriteLine("You hit Destroyer");
-                    Console.ReadKey();
+                    EnLocation.Ships[4].Width--;
+                    if (EnLocation.Ships[4].Width==0) {Console.WriteLine("Destroyer is sunken");}
+                    System.Threading.Thread.Sleep(2000);
                 }
                 else
                 {
                     Console.WriteLine("You missed");
-                    Console.ReadKey();
+                    System.Threading.Thread.Sleep(1000);
                 }
 
                 Console.Clear();
