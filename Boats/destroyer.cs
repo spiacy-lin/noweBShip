@@ -18,7 +18,7 @@ namespace noweBShip
         {
             string[] strcover = new string[2];
             Console.WriteLine("Enter DESTROYER occupied coords (ex. B1):");
-            string c = Console.ReadLine();
+            string c = Console.ReadLine().ToUpper();
             strcover = c.Split(",", 1, StringSplitOptions.RemoveEmptyEntries);
             Cover = strcover.OfType<string>().ToList();
         }
