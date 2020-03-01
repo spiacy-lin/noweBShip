@@ -72,6 +72,18 @@ namespace noweBShip
             DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
             Console.WriteLine();
             
+            // Plansza will be used during game to avoid hit in the same coord i for AI
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    EnLocation.Plansza[i,j] = false;
+                    MyLocation.Plansza[i,j] = false;
+                }
+            }
+            
+            int myHits = 0;
+            int enemyHits = 0;
             bool nextTurn = true;
             while(nextTurn)
             {
@@ -92,58 +104,141 @@ namespace noweBShip
                 else if (srow == 'J') {x = 9;}
                 Char scol= inputCoord[1];
                 int y = scol - '0';
-                EnOcean.Board[x,y].upsideDown();  //przewrotka
-                                
-                if (EnOcean.Board[x,y].GetFront()== Square.Mark.CARRIER)
+                if (!EnLocation.Plansza[x,y])
                 {
-                    Console.WriteLine("You hit Air-Carrier");
-                    EnLocation.Ships[0].Width--;
-                    if (EnLocation.Ships[0].Width==0) {Console.WriteLine("Air-Carrier is sunken");}
-                    System.Threading.Thread.Sleep(2000);
-                }
-                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.BATTLESHIP)
-                {
-                    Console.WriteLine("You hit Battleship");
-                    EnLocation.Ships[1].Width--;
-                    if (EnLocation.Ships[1].Width==0) {Console.WriteLine("Battleship is sunken");}
-                    System.Threading.Thread.Sleep(2000);
-                }
-                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.CRUISER)
-                {
-                    Console.WriteLine("You hit Cruiser");
-                    EnLocation.Ships[2].Width--;
-                    if (EnLocation.Ships[2].Width==0) {Console.WriteLine("Cruiser is sunken");}
-                    System.Threading.Thread.Sleep(2000);
-                }
-                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.SUBMARINE)
-                {
-                    Console.WriteLine("You hit Submarine");
-                    EnLocation.Ships[3].Width--;
-                    if (EnLocation.Ships[3].Width==0) {Console.WriteLine("Submarine is sunken");}
-                    System.Threading.Thread.Sleep(2000);
-                }
-                else if (EnOcean.Board[x,y].GetFront()== Square.Mark.DESTROYER)
-                {
-                    Console.WriteLine("You hit Destroyer");
-                    EnLocation.Ships[4].Width--;
-                    if (EnLocation.Ships[4].Width==0) {Console.WriteLine("Destroyer is sunken");}
-                    System.Threading.Thread.Sleep(2000);
+                    EnOcean.Board[x,y].upsideDown();  //przewrotka
+                    EnLocation.Plansza[x,y] = true;
+                                    
+                    if (EnOcean.Board[x,y].GetFront()== Square.Mark.CARRIER)
+                    {
+                        Console.WriteLine("You hit Air-Carrier");
+                        EnLocation.Ships[0].Width--;
+                        if (EnLocation.Ships[0].Width==0) 
+                        {
+                            Console.WriteLine("Air-Carrier is sunken");
+                            foreach (string item in EnLocation.Ships[0].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                EnOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            }
+
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                        myHits++;
+                    }
+                    else if (EnOcean.Board[x,y].GetFront()== Square.Mark.BATTLESHIP)
+                    {
+                        Console.WriteLine("You hit Battleship");
+                        EnLocation.Ships[1].Width--;
+                        if (EnLocation.Ships[1].Width==0) 
+                        {
+                            Console.WriteLine("Battleship is sunken");
+                            foreach (string item in EnLocation.Ships[1].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                EnOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                        myHits++;
+                    }
+                    else if (EnOcean.Board[x,y].GetFront()== Square.Mark.CRUISER)
+                    {
+                        Console.WriteLine("You hit Cruiser");
+                        EnLocation.Ships[2].Width--;
+                        if (EnLocation.Ships[2].Width==0) 
+                        {
+                            Console.WriteLine("Cruiser is sunken");
+                            foreach (string item in EnLocation.Ships[2].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                EnOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                        myHits++;
+                    }
+                    else if (EnOcean.Board[x,y].GetFront()== Square.Mark.SUBMARINE)
+                    {
+                        Console.WriteLine("You hit Submarine");
+                        EnLocation.Ships[3].Width--;
+                        if (EnLocation.Ships[3].Width==0) 
+                        {
+                            Console.WriteLine("Submarine is sunken");
+                            foreach (string item in EnLocation.Ships[3].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                EnOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                        myHits++;
+                    }
+                    else if (EnOcean.Board[x,y].GetFront()== Square.Mark.DESTROYER)
+                    {
+                        Console.WriteLine("You hit Destroyer");
+                        EnLocation.Ships[4].Width--;
+                        if (EnLocation.Ships[4].Width==0) 
+                        {
+                            Console.WriteLine("Destroyer is sunken");
+                            foreach (string item in EnLocation.Ships[4].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                EnOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            }
+                        }
+
+                        System.Threading.Thread.Sleep(2000);
+                        myHits++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You missed");
+                        System.Threading.Thread.Sleep(1000);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("You missed");
-                    System.Threading.Thread.Sleep(1000);
+                    Console.WriteLine("You hit there before!!! Be carreful.");
+                    System.Threading.Thread.Sleep(1500);
                 }
+                if (myHits == 15) {break;}
+                // enemy turn
+
+                // enemy turn
 
                 Console.Clear();
                 Console.WriteLine("         Player vs. AI battleship game");
                 Console.WriteLine();
                 DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
                 Console.WriteLine();
-
-
             }
-
+            // winner anouncement
+            Console.Clear();
+            Console.WriteLine("         Player vs. AI battleship game");
+            Console.WriteLine();
+            DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
+            Console.WriteLine();
+            
+            if (myHits == 15)
+            {
+                Console.WriteLine("Congratulation. You are the WINER !!!");
+            }
+            else if (enemyHits == 15)
+            {
+                Console.WriteLine("Sorry. AI is the WINER !!!");
+            }
+            else
+            {
+                Console.WriteLine("Draw state");
+            }
+            Console.WriteLine("The game is over. See you next time");
+            // end of game
             
 
 		}
@@ -192,6 +287,10 @@ namespace noweBShip
                     else if (e == "HIT")
                     {
                         line1 += "X ";
+                    }
+                    else if (e == "SUNK")
+                    {
+                        line1 += "# ";
                     }
                     else
                     {
@@ -397,6 +496,32 @@ namespace noweBShip
             return a1lista;
         }
 
+        int Transformacja2(char ch)
+        {
+            if (ch == 'A'){return 0;}
+            else if (ch == 'B') {return 1;}
+            else if (ch == 'C') {return 2;}
+            else if (ch == 'D') {return 3;}
+            else if (ch == 'E') {return 4;}
+            else if (ch == 'F') {return 5;}
+            else if (ch == 'G') {return 6;}
+            else if (ch == 'H') {return 7;}
+            else if (ch == 'I') {return 8;}
+            else {return 9;}
+        }
+        int Transformacja3(char ch)
+        {
+            if (ch == '0'){return 0;}
+            else if (ch == '1') {return 1;}
+            else if (ch == '2') {return 2;}
+            else if (ch == '3') {return 3;}
+            else if (ch == '4') {return 4;}
+            else if (ch == '5') {return 5;}
+            else if (ch == '6') {return 6;}
+            else if (ch == '7') {return 7;}
+            else if (ch == '8') {return 8;}
+            else {return 9;}
+        }
         public void PlaceShipM(ShipsLocation loka, Ocean ocea)
         {
             int counter = 0;
