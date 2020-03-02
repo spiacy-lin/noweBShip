@@ -208,10 +208,213 @@ namespace noweBShip
                     System.Threading.Thread.Sleep(1500);
                 }
                 if (myHits == 15) {break;}
+                
+                //********************************************************
                 // enemy turn
+                bool hCarrier = false;
+                bool hBattleship= false;
+                bool hCruiser = false;
+                bool hSubmarine = false;
+                bool hDestroyer = false;
+                if (hCarrier)
+                {}
+                else if (hBattleship)
+                {}
+                else if (hCruiser)
+                {}
+                else if (hSubmarine)
+                {}
+                else if (hDestroyer)
+                {}
+                else   // nie ma częściowego trafienia
+                {
+                    int ex = random.Next(10);
+                    int ey = random.Next(10);
+                    MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
+                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
 
-                // enemy turn
-
+                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.CARRIER)
+                    {
+                        hCarrier = true;
+                        MyLocation.Ships[0].Width--;
+                        if (MyLocation.Ships[0].Width==0)
+                        {
+                            foreach (string item in MyLocation.Ships[0].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                                hCarrier = false;
+                            }
+                            // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                            foreach (string item in MyLocation.Ships[0].Cover)
+                            {
+                                char first = item[0];
+                                char second = item[1];
+                                int h1 = Transformacja2(first);
+                                int h2 = Transformacja3(second);
+                                if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                {
+                                    MyLocation.Plansza[h1+1,h2-1] = true;
+                                    MyLocation.Plansza[h1+1,h2] = true;
+                                    MyLocation.Plansza[h1+1,h2+1] = true;
+                                    MyLocation.Plansza[h1,h2-1] = true;
+                                    MyLocation.Plansza[h1,h2+1] = true;
+                                    MyLocation.Plansza[h1-1,h2-1] = true;
+                                    MyLocation.Plansza[h1-1,h2] = true;
+                                    MyLocation.Plansza[h1-1,h2+1] = true;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.BATTLESHIP)
+                    {
+                        hBattleship = true;
+                        MyLocation.Ships[1].Width--;
+                        if (MyLocation.Ships[1].Width==0)
+                        {
+                            foreach (string item in MyLocation.Ships[1].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                                hBattleship = false;
+                            }
+                            // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                            foreach (string item in MyLocation.Ships[1].Cover)
+                            {
+                                char first = item[0];
+                                char second = item[1];
+                                int h1 = Transformacja2(first);
+                                int h2 = Transformacja3(second);
+                                if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                {
+                                    MyLocation.Plansza[h1+1,h2-1] = true;
+                                    MyLocation.Plansza[h1+1,h2] = true;
+                                    MyLocation.Plansza[h1+1,h2+1] = true;
+                                    MyLocation.Plansza[h1,h2-1] = true;
+                                    MyLocation.Plansza[h1,h2+1] = true;
+                                    MyLocation.Plansza[h1-1,h2-1] = true;
+                                    MyLocation.Plansza[h1-1,h2] = true;
+                                    MyLocation.Plansza[h1-1,h2+1] = true;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.CRUISER)
+                    {
+                        hCruiser = true;
+                        MyLocation.Ships[2].Width--;
+                        if (MyLocation.Ships[2].Width==0)
+                        {
+                            foreach (string item in MyLocation.Ships[2].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                                hCruiser = false;
+                            }
+                            // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                            foreach (string item in MyLocation.Ships[2].Cover)
+                            {
+                                char first = item[0];
+                                char second = item[1];
+                                int h1 = Transformacja2(first);
+                                int h2 = Transformacja3(second);
+                                if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                {
+                                    MyLocation.Plansza[h1+1,h2-1] = true;
+                                    MyLocation.Plansza[h1+1,h2] = true;
+                                    MyLocation.Plansza[h1+1,h2+1] = true;
+                                    MyLocation.Plansza[h1,h2-1] = true;
+                                    MyLocation.Plansza[h1,h2+1] = true;
+                                    MyLocation.Plansza[h1-1,h2-1] = true;
+                                    MyLocation.Plansza[h1-1,h2] = true;
+                                    MyLocation.Plansza[h1-1,h2+1] = true;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.SUBMARINE)
+                    {
+                        hSubmarine = true;
+                        MyLocation.Ships[3].Width--;
+                        if (MyLocation.Ships[3].Width==0)
+                        {
+                            foreach (string item in MyLocation.Ships[3].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                                hSubmarine = false;
+                            }
+                            // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                            foreach (string item in MyLocation.Ships[4].Cover)
+                            {
+                                char first = item[0];
+                                char second = item[1];
+                                int h1 = Transformacja2(first);
+                                int h2 = Transformacja3(second);
+                                if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                {
+                                    MyLocation.Plansza[h1+1,h2-1] = true;
+                                    MyLocation.Plansza[h1+1,h2] = true;
+                                    MyLocation.Plansza[h1+1,h2+1] = true;
+                                    MyLocation.Plansza[h1,h2-1] = true;
+                                    MyLocation.Plansza[h1,h2+1] = true;
+                                    MyLocation.Plansza[h1-1,h2-1] = true;
+                                    MyLocation.Plansza[h1-1,h2] = true;
+                                    MyLocation.Plansza[h1-1,h2+1] = true;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.DESTROYER)
+                    {
+                        hDestroyer = true;
+                        MyLocation.Ships[4].Width--;
+                        if (MyLocation.Ships[4].Width==0)
+                        {
+                            foreach (string item in MyLocation.Ships[4].Cover)
+                            {
+                                int a = Transformacja2(item[0]);
+                                int b = Transformacja3(item[1]);
+                                MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                                hDestroyer = false;
+                            }
+                            // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                            foreach (string item in MyLocation.Ships[4].Cover)
+                            {
+                                char first = item[0];
+                                char second = item[1];
+                                int h1 = Transformacja2(first);
+                                int h2 = Transformacja3(second);
+                                if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                {
+                                    MyLocation.Plansza[h1+1,h2-1] = true;
+                                    MyLocation.Plansza[h1+1,h2] = true;
+                                    MyLocation.Plansza[h1+1,h2+1] = true;
+                                    MyLocation.Plansza[h1,h2-1] = true;
+                                    MyLocation.Plansza[h1,h2+1] = true;
+                                    MyLocation.Plansza[h1-1,h2-1] = true;
+                                    MyLocation.Plansza[h1-1,h2] = true;
+                                    MyLocation.Plansza[h1-1,h2+1] = true;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                
                 Console.Clear();
                 Console.WriteLine("         Player vs. AI battleship game");
                 Console.WriteLine();
@@ -237,9 +440,9 @@ namespace noweBShip
             {
                 Console.WriteLine("Draw state");
             }
-            Console.WriteLine("The game is over. See you next time");
-            // end of game
             
+            // end of game
+            Console.WriteLine("The game is over. See you next time");
 
 		}
         //Display two boards in terminal
@@ -535,6 +738,7 @@ namespace noweBShip
                     int x = (int)(temp[0])-65;
                     int y = (int)(temp[1])-48;
                     ocea.Board[x,y].SetFront((Square.Mark)counter);
+                    ocea.Board[x,y].SetBack((Square.Mark.HIT));
                 }
                 counter++;
             }
