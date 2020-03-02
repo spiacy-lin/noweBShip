@@ -230,6 +230,12 @@ namespace noweBShip
                 {
                     int ex = random.Next(10);
                     int ey = random.Next(10);
+                    while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                    {
+                        ex = random.Next(10);
+                        ey = random.Next(10);
+                    }
+
                     MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
 
