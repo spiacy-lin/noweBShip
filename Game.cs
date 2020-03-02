@@ -85,6 +85,11 @@ namespace noweBShip
             int myHits = 0;
             int enemyHits = 0;
             bool nextTurn = true;
+            bool hCarrier = false;
+            bool hBattleship= false;
+            bool hCruiser = false;
+            bool hSubmarine = false;
+            bool hDestroyer = false;
             while(nextTurn)
             {
                 // my turn
@@ -211,24 +216,34 @@ namespace noweBShip
                 
                 //********************************************************
                 // enemy turn
-                bool hCarrier = false;
-                bool hBattleship= false;
-                bool hCruiser = false;
-                bool hSubmarine = false;
-                bool hDestroyer = false;
                 if (hCarrier)
-                {}
-                else if (hBattleship)
-                {}
-                else if (hCruiser)
-                {}
-                else if (hSubmarine)
-                {}
-                else if (hDestroyer)
-                {}
-                else   // nie ma częściowego trafienia
                 {
-                    int ex = random.Next(10);
+                    Console.WriteLine("Carrier action");
+                    Console.ReadKey();
+                }
+                else if (hBattleship)
+                {
+                    Console.WriteLine("Battleship action");
+                    Console.ReadKey();
+                }
+                else if (hCruiser)
+                {
+                    Console.WriteLine("Cruiser action");
+                    Console.ReadKey();
+                }
+                else if (hSubmarine)
+                {
+                    Console.WriteLine("Submarine action");
+                    Console.ReadKey();
+                }
+                else if (hDestroyer)
+                {
+                    Console.WriteLine("Destroyeraction");
+                    Console.ReadKey();
+                }
+                else   // nie ma częściowego trafienia
+                { 
+                    int ex = random.Next(10); //losowanie koordynat
                     int ey = random.Next(10);
                     while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
                     {
@@ -239,7 +254,7 @@ namespace noweBShip
                     MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
 
-                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.CARRIER)
+                    if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.CARRIER)
                     {
                         hCarrier = true;
                         MyLocation.Ships[0].Width--;
@@ -275,7 +290,7 @@ namespace noweBShip
                             
                         }
                     }
-                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.BATTLESHIP)
+                    else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.BATTLESHIP)
                     {
                         hBattleship = true;
                         MyLocation.Ships[1].Width--;
@@ -311,7 +326,7 @@ namespace noweBShip
                             
                         }
                     }
-                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.CRUISER)
+                    else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.CRUISER)
                     {
                         hCruiser = true;
                         MyLocation.Ships[2].Width--;
@@ -347,7 +362,7 @@ namespace noweBShip
                             
                         }
                     }
-                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.SUBMARINE)
+                    else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.SUBMARINE)
                     {
                         hSubmarine = true;
                         MyLocation.Ships[3].Width--;
@@ -383,7 +398,7 @@ namespace noweBShip
                             
                         }
                     }
-                    else if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.DESTROYER)
+                    else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.DESTROYER)
                     {
                         hDestroyer = true;
                         MyLocation.Ships[4].Width--;
