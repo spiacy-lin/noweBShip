@@ -90,8 +90,7 @@ namespace noweBShip
             bool hBattleship= false;
             bool hCruiser = false;
             bool hSubmarine = false;
-            bool hDestroyer = false;
-            
+                       
             List<int> carhits = new List<int>();  //lista coords, do strategii AI
             List<int> bathits = new List<int>();
             List<int> cruhits = new List<int>();
@@ -261,6 +260,16 @@ namespace noweBShip
                         else
                         {
                             // mozna zacząć wnioskować, mamy dwa hity w carhits
+                            if (carhits[0]!= carhits[3]) //vertical
+                            {
+                                if (ex+1<10 && !MyLocation.Plansza[ex+1,ey]) {ex = ex+1;}
+                                else {ex = ex -1;}
+                            }
+                            else  // horizontal
+                            {
+                                
+                            }
+                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                         }
                     }
                     else
@@ -312,8 +321,6 @@ namespace noweBShip
                 }
                 else if (hCruiser)
                 {
-                    Console.WriteLine("Cruiser action");
-                    Console.ReadKey();
                     carhits.Add(ex);
                     carhits.Add(ey);
                     if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
@@ -333,107 +340,54 @@ namespace noweBShip
                                     else {ey = ey-1;}
                                 }
                             }
-                        
-                            Console.WriteLine("{0} {1}", ex, ey);
-                            foreach (int item in carhits)
-                            {
-                                Console.Write(item+ " ");
-                            }
-                            Console.ReadKey();
                             MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                         }
                         else
                         {
                             // mozna zacząć wnioskować, mamy dwa hity w cruhits
+                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                         }
                     }
                     else
                     {
                         // zainteresowany carrierem ale pudło, mozna zacząć wnioskować jeden hit w cruhits i pudło
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                     }
                 }
                 else if (hSubmarine)
                 {
-                    Console.WriteLine("Submarine action");
-                    Console.ReadKey();
                     carhits.Add(ex);
                     carhits.Add(ey);
                     if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
-                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
                     {
-                        if (subhits.Count == 2)
-                        {
-                            Console.WriteLine("{0} {1}", ex, ey);
-                            Console.ReadKey();
-                            if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) {ex = ex+1;}
-                            else
-                            {
-                                if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) {ey = ey+1;}
-                                else
-                                {
-                                    if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) {ex = ex-1;}
-                                    else {ey = ey-1;}
-                                }
-                            }
-                        
-                            Console.WriteLine("{0} {1}", ex, ey);
-                            foreach (int item in carhits)
-                            {
-                                Console.Write(item+ " ");
-                            }
-                            Console.ReadKey();
-                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
-                        }
+                        Console.WriteLine("{0} {1}", ex, ey);
+                        Console.ReadKey();
+                        if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) {ex = ex+1;}
                         else
                         {
-                            // mozna zacząć wnioskować, mamy dwa hity w carhits
+                            if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) {ey = ey+1;}
+                            else
+                            {
+                                if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) {ex = ex-1;}
+                                else {ey = ey-1;}
+                            }
                         }
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                     }
                     else
                     {
-                        // zainteresowany carrierem ale pudło, mozna zacząć wnioskować jeden hit w carhits i pudło
-                    }
-                }
-                else if (hDestroyer)
-                {
-                    Console.WriteLine("Destroyeraction");
-                    Console.ReadKey();
-                    carhits.Add(ex);
-                    carhits.Add(ey);
-                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
-                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
-                    {
-                        if (deshits.Count == 2)
-                        {
-                            Console.WriteLine("{0} {1}", ex, ey);
-                            Console.ReadKey();
-                            if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) {ex = ex+1;}
-                            else
-                            {
-                                if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) {ey = ey+1;}
-                                else
-                                {
-                                    if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) {ex = ex-1;}
-                                    else {ey = ey-1;}
-                                }
-                            }
-                        
-                            Console.WriteLine("{0} {1}", ex, ey);
-                            foreach (int item in carhits)
-                            {
-                                Console.Write(item+ " ");
-                            }
-                            Console.ReadKey();
-                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
-                        }
+                        // zainteresowany submarine ale pudło, mozna zacząć wnioskować jeden hit w subhits i pudło
+                        if (subhits[0]+1 < 10 && !MyLocation.Plansza[subhits[0]+1,subhits[1]]) {ex = subhits[0]+1;}
                         else
                         {
-                            // mozna zacząć wnioskować, mamy dwa hity w carhits
+                            if (subhits[1]+1<10 && !MyLocation.Plansza[subhits[0],subhits[1]+1]) {ey = subhits[1]+1;}
+                            else
+                            {
+                                if (subhits[0]-1>=0 && !MyLocation.Plansza[subhits[0]-1,subhits[1]]) {ex = subhits[0]-1;}
+                                else {ey = subhits[1]-1;}
+                            }
                         }
-                    }
-                    else
-                    {
-                        // zainteresowany carrierem ale pudło, mozna zacząć wnioskować jeden hit w carhits i pudło
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                     }
                 }
                 else   // nie ma częściowego trafienia
