@@ -82,9 +82,24 @@ namespace noweBShip
                 }
             }
             
-            int myHits = 0;
-            int enemyHits = 0;
-            bool nextTurn = true;
+            int myHits = 0;  //zlicza sumaryczną ilość hits - do zakończenia rozgrywki
+            int enemyHits = 0;  //zlicza sumaryczną ilość hits - do zakończenia rozgrywki
+            bool nextTurn = true; // argument while
+            
+            bool hCarrier = false;  // warunek częściowego uszkodzenia
+            bool hBattleship= false;
+            bool hCruiser = false;
+            bool hSubmarine = false;
+                       
+            List<int> carhits = new List<int>();  //lista coords, do strategii AI
+            List<int> bathits = new List<int>();
+            List<int> cruhits = new List<int>();
+            List<int> subhits = new List<int>();
+            List<int> deshits = new List<int>();
+            int ex = 0; // x-coord enemy
+            int ey = 0; // y-cord emnemy
+            
+            // PETLA WHILE WHILE WHILE
             while(nextTurn)
             {
                 // my turn
@@ -208,16 +223,738 @@ namespace noweBShip
                     System.Threading.Thread.Sleep(1500);
                 }
                 if (myHits == 15) {break;}
+                
+                //********************************************************
                 // enemy turn
+                if (hCarrier)
+                {
+                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
+                    {
+                        carhits.Add(ex);
+                        carhits.Add(ey);
+                        if (carhits.Count == 2)  //jedno trafienie
+                        {
+                            if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) 
+                            {
+                                ex = ex+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) 
+                                {
+                                    ey = ey+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else
+                                {
+                                    if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) 
+                                    {
+                                        ex = ex-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                    else 
+                                    {
+                                        ey = ey-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                }
+                            }
+                            
+                        }
+                        else if (carhits.Count > 2)
+                        {
+                            // mozna zacząć wnioskować, mamy dwa hity w carhits
+                            if (carhits[0] != carhits[2]) //vertical
+                            {
+                                if (!MyLocation.Plansza[carhits[0]+1,carhits[1]])
+                                {
+                                    ex = carhits[0]+1;
+                                    ey = carhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[0]-1,carhits[1]])
+                                {
+                                    ex = carhits[0]- 1;
+                                    ey = carhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[2]+1,carhits[3]])
+                                {
+                                    ex = carhits[2]+1;
+                                    ey = carhits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[2]-1,carhits[3]])
+                                {
+                                    ex = carhits[2]- 1;
+                                    ey = carhits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[4]+1,carhits[5]])
+                                {
+                                    ex = carhits[4]+1;
+                                    ey = carhits[5];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[4]-1,carhits[5]])
+                                {
+                                    ex = carhits[4]- 1;
+                                    ey = carhits[5];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[6]+1,carhits[7]])
+                                {
+                                    ex = carhits[6]+1;
+                                    ey = carhits[7];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = carhits[6]- 1;
+                                    ey = carhits[7];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
 
-                // enemy turn
+                            }
+                            else  //horizontal
+                            {
+                                if (!MyLocation.Plansza[carhits[0],carhits[1]+1])
+                                {
+                                    ex = carhits[0];
+                                    ey = carhits[1]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[0],carhits[1]-1])
+                                {
+                                    ex = carhits[0];
+                                    ey = carhits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[2],carhits[3]+1])
+                                {
+                                    ex = carhits[2];
+                                    ey = carhits[3]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[2],carhits[3]-1])
+                                {
+                                    ex = carhits[2];
+                                    ey = carhits[3]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[4],carhits[5]+1])
+                                {
+                                    ex = carhits[4];
+                                    ey = carhits[5]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[4],carhits[5]-1])
+                                {
+                                    ex = carhits[4];
+                                    ey = carhits[5]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[carhits[6],carhits[7]+1])
+                                {
+                                    ex = carhits[6];
+                                    ey = carhits[7]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = carhits[6];
+                                    ey = carhits[7]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        // zainteresowany cruiserem ale pudło, mozna zacząć wnioskować jeden hit w cruhits i pudło
+                        if (carhits[0]+1 < 10 && !MyLocation.Plansza[carhits[0]+1,carhits[1]]) 
+                        {
+                            ex = carhits[0]+1;
+                            ey = carhits[1];
+                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                        }
+                        else
+                        {
+                            if (carhits[1]+1<10 && !MyLocation.Plansza[carhits[0],carhits[1]+1]) 
+                            {
+                                ex = carhits[0];
+                                ey = carhits[1]+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (carhits[0]-1>=0 && !MyLocation.Plansza[carhits[0]-1,carhits[1]]) 
+                                {
+                                    ex = carhits[0]-1;
+                                    ey = carhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = carhits[0];
+                                    ey = carhits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                else if (hBattleship)
+                {
+                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
+                    {
+                        bathits.Add(ex);
+                        bathits.Add(ey);
+                        if (bathits.Count == 2)  //jedno trafienie
+                        {
+                            if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) 
+                            {
+                                ex = ex+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) 
+                                {
+                                    ey = ey+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else
+                                {
+                                    if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) 
+                                    {
+                                        ex = ex-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                    else 
+                                    {
+                                        ey = ey-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                }
+                            }
+                            
+                        }
+                        else if (bathits.Count > 2)
+                        {
+                            // mozna zacząć wnioskować, mamy dwa hity w bathits
+                            if (bathits[0] != bathits[2]) //vertical
+                            {
+                                if (!MyLocation.Plansza[bathits[0]+1,bathits[1]])
+                                {
+                                    ex = bathits[0]+1;
+                                    ey = bathits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[0]-1,bathits[1]])
+                                {
+                                    ex = bathits[0]- 1;
+                                    ey = bathits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[2]+1,bathits[3]])
+                                {
+                                    ex = bathits[2]+1;
+                                    ey = bathits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[2]-1,bathits[3]])
+                                {
+                                    ex = bathits[2]- 1;
+                                    ey = bathits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                 else if (!MyLocation.Plansza[bathits[4]+1,bathits[5]])
+                                {
+                                    ex = bathits[4]+1;
+                                    ey = bathits[5];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = bathits[4]- 1;
+                                    ey = bathits[5];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
 
+                            }
+                            else  //horizontal
+                            {
+                                if (!MyLocation.Plansza[bathits[0],bathits[1]+1])
+                                {
+                                    ex = bathits[0];
+                                    ey = bathits[1]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[0],bathits[1]-1])
+                                {
+                                    ex = bathits[0];
+                                    ey = bathits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[2],bathits[3]+1])
+                                {
+                                    ex = bathits[2];
+                                    ey = bathits[3]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[2],bathits[3]-1])
+                                {
+                                    ex = bathits[2];
+                                    ey = bathits[3]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[bathits[4],bathits[5]+1])
+                                {
+                                    ex = bathits[4];
+                                    ey = bathits[5]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = bathits[4];
+                                    ey = bathits[5]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        // zainteresowany cruiserem ale pudło, mozna zacząć wnioskować jeden hit w cruhits i pudło
+                        if (bathits[0]+1 < 10 && !MyLocation.Plansza[bathits[0]+1,bathits[1]]) 
+                        {
+                            ex = bathits[0]+1;
+                            ey = bathits[1];
+                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                        }
+                        else
+                        {
+                            if (bathits[1]+1<10 && !MyLocation.Plansza[bathits[0],bathits[1]+1]) 
+                            {
+                                ex = bathits[0];
+                                ey = bathits[1]+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (bathits[0]-1>=0 && !MyLocation.Plansza[bathits[0]-1,bathits[1]]) 
+                                {
+                                    ex = bathits[0]-1;
+                                    ey = bathits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = bathits[0];
+                                    ey = bathits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                else if (hCruiser)
+                {
+                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
+                    {
+                        cruhits.Add(ex);
+                        cruhits.Add(ey);
+                        if (cruhits.Count == 2)  //jedno trafienie
+                        {
+                            if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) 
+                            {
+                                ex = ex+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) 
+                                {
+                                    ey = ey+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else
+                                {
+                                    if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) 
+                                    {
+                                        ex = ex-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                    else 
+                                    {
+                                        ey = ey-1;
+                                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                    }
+                                }
+                            }
+                            
+                        }
+                        else if (cruhits.Count > 2)
+                        {
+                            // mozna zacząć wnioskować, mamy dwa hity w cruhits
+                            if (cruhits[0] != cruhits[2]) //vertical
+                            {
+                                if (!MyLocation.Plansza[cruhits[0]+1,cruhits[1]])
+                                {
+                                    ex = cruhits[0]+1;
+                                    ey = cruhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[cruhits[0]-1,cruhits[1]])
+                                {
+                                    ex = cruhits[0]- 1;
+                                    ey = cruhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[cruhits[2]+1,cruhits[3]])
+                                {
+                                    ex = cruhits[2]+1;
+                                    ey = cruhits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = cruhits[2]- 1;
+                                    ey = cruhits[3];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+
+                            }
+                            else  //horizontal
+                            {
+                                if (!MyLocation.Plansza[cruhits[0],cruhits[1]+1])
+                                {
+                                    ex = cruhits[0];
+                                    ey = cruhits[1]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[cruhits[0],cruhits[1]-1])
+                                {
+                                    ex = cruhits[0];
+                                    ey = cruhits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else if (!MyLocation.Plansza[cruhits[2],cruhits[3]+1])
+                                {
+                                    ex = cruhits[2];
+                                    ey = cruhits[3]+1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = cruhits[2];
+                                    ey = cruhits[3]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        // zainteresowany cruiserem ale pudło, mozna zacząć wnioskować jeden hit w cruhits i pudło
+                        if (cruhits[0]+1 < 10 && !MyLocation.Plansza[cruhits[0]+1,cruhits[1]]) 
+                        {
+                            ex = cruhits[0]+1;
+                            ey = cruhits[1];
+                            MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                        }
+                        else
+                        {
+                            if (cruhits[1]+1<10 && !MyLocation.Plansza[cruhits[0],cruhits[1]+1]) 
+                            {
+                                ex = cruhits[0];
+                                ey = cruhits[1]+1;
+                                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                            }
+                            else
+                            {
+                                if (cruhits[0]-1>=0 && !MyLocation.Plansza[cruhits[0]-1,cruhits[1]]) 
+                                {
+                                    ex = cruhits[0]-1;
+                                    ey = cruhits[1];
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                                else 
+                                {
+                                    ex = cruhits[0];
+                                    ey = cruhits[1]-1;
+                                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                else if (hSubmarine)
+                {
+                    subhits.Add(ex);
+                    subhits.Add(ey);
+                    if (MyOcean.Board[ex,ey].GetFront()== Square.Mark.HIT) //jeżeli jest trafiony
+                    {
+                        if (ex+1 < 10 && !MyLocation.Plansza[ex+1,ey]) {ex = ex+1;}
+                        else
+                        {
+                            if (ey+1<10 && !MyLocation.Plansza[ex,ey+1]) {ey = ey+1;}
+                            else
+                            {
+                                if (ex-1>=0 && !MyLocation.Plansza[ex-1,ey]) {ex = ex-1;}
+                                else {ey = ey-1;}
+                            }
+                        }
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                    }
+                    else
+                    {
+                        // zainteresowany submarine ale pudło, mozna zacząć wnioskować jeden hit w subhits i pudło
+                        if (subhits[0]+1 < 10 && !MyLocation.Plansza[subhits[0]+1,subhits[1]]) 
+                        {
+                            ex = subhits[0]+1;
+                            ey = subhits[1];
+                        }
+                        else
+                        {
+                            if (subhits[1]+1<10 && !MyLocation.Plansza[subhits[0],subhits[1]+1]) 
+                            {
+                                ex = subhits[0];
+                                ey = subhits[1]+1;
+                            }
+                            else
+                            {
+                                if (subhits[0]-1>=0 && !MyLocation.Plansza[subhits[0]-1,subhits[1]]) 
+                                {
+                                    ex = subhits[0]-1;
+                                    ey = subhits[1];
+                                }
+                                else 
+                                {
+                                    ex = subhits[0];
+                                    ey = subhits[1]-1;
+                                }
+                            }
+                        }
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                    }
+                }
+                else   // nie ma częściowego trafienia
+                { 
+                    
+                    Console.WriteLine("Testing tool to avoid random hit");
+                    string sex = Console.ReadLine();
+                    ex = Int32.Parse(sex);
+                    string sey = Console.ReadLine();
+                    ey = Int32.Parse(sey);
+                    
+                    /*ex = random.Next(10); //losowanie koordynat
+                    ey = random.Next(10);
+                    while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                    {
+                        ex = random.Next(10);
+                        ey = random.Next(10);
+                    }*/
+                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+
+                }
+                                
+                MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
+                MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+
+                if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.CARRIER)
+                {
+                    hCarrier = true;
+                    MyLocation.Ships[0].Width--;
+                    if (MyLocation.Ships[0].Width==0)
+                    {
+                        foreach (string item in MyLocation.Ships[0].Cover)
+                        {
+                            int a = Transformacja2(item[0]);
+                            int b = Transformacja3(item[1]);
+                            MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            hCarrier = false;
+                        }
+                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                        foreach (string item in MyLocation.Ships[0].Cover)
+                        {
+                            char first = item[0];
+                            char second = item[1];
+                            int h1 = Transformacja2(first);
+                            int h2 = Transformacja3(second);
+                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                            {
+                                MyLocation.Plansza[h1+1,h2-1] = true;
+                                MyLocation.Plansza[h1+1,h2] = true;
+                                MyLocation.Plansza[h1+1,h2+1] = true;
+                                MyLocation.Plansza[h1,h2-1] = true;
+                                MyLocation.Plansza[h1,h2+1] = true;
+                                MyLocation.Plansza[h1-1,h2-1] = true;
+                                MyLocation.Plansza[h1-1,h2] = true;
+                                MyLocation.Plansza[h1-1,h2+1] = true;
+                            }
+                        }
+                    }
+                }
+                else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.BATTLESHIP)
+                {
+                    hBattleship = true;
+                    MyLocation.Ships[1].Width--;
+                    if (MyLocation.Ships[1].Width==0)
+                    {
+                        foreach (string item in MyLocation.Ships[1].Cover)
+                        {
+                            int a = Transformacja2(item[0]);
+                            int b = Transformacja3(item[1]);
+                            MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            hBattleship = false;
+                        }
+                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                        foreach (string item in MyLocation.Ships[1].Cover)
+                        {
+                            char first = item[0];
+                            char second = item[1];
+                            int h1 = Transformacja2(first);
+                            int h2 = Transformacja3(second);
+                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                            {
+                                MyLocation.Plansza[h1+1,h2-1] = true;
+                                MyLocation.Plansza[h1+1,h2] = true;
+                                MyLocation.Plansza[h1+1,h2+1] = true;
+                                MyLocation.Plansza[h1,h2-1] = true;
+                                MyLocation.Plansza[h1,h2+1] = true;
+                                MyLocation.Plansza[h1-1,h2-1] = true;
+                                MyLocation.Plansza[h1-1,h2] = true;
+                                MyLocation.Plansza[h1-1,h2+1] = true;
+                            }
+                               
+                        }
+                            
+                    }
+                }
+                else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.CRUISER)
+                {
+                    hCruiser = true;
+                    MyLocation.Ships[2].Width--;
+                    if (MyLocation.Ships[2].Width==0)
+                    {
+                        foreach (string item in MyLocation.Ships[2].Cover)
+                        {
+                            int a = Transformacja2(item[0]);
+                            int b = Transformacja3(item[1]);
+                            MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            hCruiser = false;
+                        }
+                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                        foreach (string item in MyLocation.Ships[2].Cover)
+                        {
+                            char first = item[0];
+                            char second = item[1];
+                            int h1 = Transformacja2(first);
+                            int h2 = Transformacja3(second);
+                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                            {
+                                MyLocation.Plansza[h1+1,h2-1] = true;
+                                MyLocation.Plansza[h1+1,h2] = true;
+                                MyLocation.Plansza[h1+1,h2+1] = true;
+                                MyLocation.Plansza[h1,h2-1] = true;
+                                MyLocation.Plansza[h1,h2+1] = true;
+                                MyLocation.Plansza[h1-1,h2-1] = true;
+                                MyLocation.Plansza[h1-1,h2] = true;
+                                MyLocation.Plansza[h1-1,h2+1] = true;
+                            }
+                                
+                        }
+                            
+                    }
+                }
+                else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.SUBMARINE)
+                {
+                    hSubmarine = true;
+                    MyLocation.Ships[3].Width--;
+                    if (MyLocation.Ships[3].Width==0)
+                    {
+                        foreach (string item in MyLocation.Ships[3].Cover)
+                        {
+                            int a = Transformacja2(item[0]);
+                            int b = Transformacja3(item[1]);
+                            MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            hSubmarine = false;
+                        }
+                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                        foreach (string item in MyLocation.Ships[4].Cover)
+                        {
+                            char first = item[0];
+                            char second = item[1];
+                            int h1 = Transformacja2(first);
+                            int h2 = Transformacja3(second);
+                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                            {
+                                MyLocation.Plansza[h1+1,h2-1] = true;
+                                MyLocation.Plansza[h1+1,h2] = true;
+                                MyLocation.Plansza[h1+1,h2+1] = true;
+                                MyLocation.Plansza[h1,h2-1] = true;
+                                MyLocation.Plansza[h1,h2+1] = true;
+                                MyLocation.Plansza[h1-1,h2-1] = true;
+                                MyLocation.Plansza[h1-1,h2] = true;
+                                MyLocation.Plansza[h1-1,h2+1] = true;
+                            }
+                                
+                        }
+                          
+                    }
+                }
+                else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.DESTROYER)
+                {
+                    //hDestroyer = true;
+                    MyLocation.Ships[4].Width--;
+                    if (MyLocation.Ships[4].Width==0)
+                    {
+                        foreach (string item in MyLocation.Ships[4].Cover)
+                        {
+                            int a = Transformacja2(item[0]);
+                            int b = Transformacja3(item[1]);
+                            MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
+                            //hDestroyer = false;
+                        }
+                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
+                        foreach (string item in MyLocation.Ships[4].Cover)
+                        {
+                            char first = item[0];
+                            char second = item[1];
+                            int h1 = Transformacja2(first);
+                            int h2 = Transformacja3(second);
+                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                            {
+                                MyLocation.Plansza[h1+1,h2-1] = true;
+                                MyLocation.Plansza[h1+1,h2] = true;
+                                MyLocation.Plansza[h1+1,h2+1] = true;
+                                MyLocation.Plansza[h1,h2-1] = true;
+                                MyLocation.Plansza[h1,h2+1] = true;
+                                MyLocation.Plansza[h1-1,h2-1] = true;
+                                MyLocation.Plansza[h1-1,h2] = true;
+                                MyLocation.Plansza[h1-1,h2+1] = true;
+                            }
+                               
+                        }
+                            
+                    }
+                }
                 Console.Clear();
                 Console.WriteLine("         Player vs. AI battleship game");
                 Console.WriteLine();
                 DisplayTwoBoards(EnOcean.Board, MyOcean.Board);
                 Console.WriteLine();
-            }
+            
+            }  // konniec WHILE WHILE WHILE
             // winner anouncement
             Console.Clear();
             Console.WriteLine("         Player vs. AI battleship game");
@@ -237,9 +974,9 @@ namespace noweBShip
             {
                 Console.WriteLine("Draw state");
             }
-            Console.WriteLine("The game is over. See you next time");
-            // end of game
             
+            // end of game
+            Console.WriteLine("The game is over. See you next time");
 
 		}
         //Display two boards in terminal
@@ -294,7 +1031,7 @@ namespace noweBShip
                     }
                     else
                     {
-                        line1 += "?";
+                        line1 += "? ";
                     }
                     // put appropriate char to front - my
                     string m = my[i,j].GetFront().ToString();
@@ -332,7 +1069,7 @@ namespace noweBShip
                     }
                     else
                     {
-                        line2 += "?";
+                        line2 += "# ";
                     }
                 }
                 Console.Write("{0}", (char)(65+i));
@@ -535,6 +1272,7 @@ namespace noweBShip
                     int x = (int)(temp[0])-65;
                     int y = (int)(temp[1])-48;
                     ocea.Board[x,y].SetFront((Square.Mark)counter);
+                    ocea.Board[x,y].SetBack((Square.Mark.HIT));
                 }
                 counter++;
             }

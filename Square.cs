@@ -33,5 +33,9 @@ namespace noweBShip
 		{
 			return Front;
 		}
+		public Square.Mark GetBack()
+		{
+			return Back;
+		}
 	}
 }
