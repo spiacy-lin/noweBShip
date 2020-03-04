@@ -253,7 +253,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1>=0 && !MyLocation.Plansza[ex,ey-1]) 
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -396,7 +396,7 @@ namespace noweBShip
                                     ey = carhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (carhits[1]-1>=0 && !MyLocation.Plansza[carhits[0], carhits[1]-1])
                                 {
                                     ex = carhits[0];
                                     ey = carhits[1]-1;
@@ -434,7 +434,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1 >=0 && !MyLocation.Plansza[ex,ey-1])
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -553,7 +553,7 @@ namespace noweBShip
                                     ey = bathits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (bathits[1]-1>=0 && !MyLocation.Plansza[bathits[0],bathits[1]-1])
                                 {
                                     ex = bathits[0];
                                     ey = bathits[1]-1;
@@ -591,7 +591,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1 >=0 && !MyLocation.Plansza[ex,ey-1])
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -686,7 +686,7 @@ namespace noweBShip
                                     ey = cruhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (cruhits[1]-1>=0 && !MyLocation.Plansza[cruhits[0],cruhits[1]-1])
                                 {
                                     ex = cruhits[0];
                                     ey = cruhits[1]-1;
@@ -924,7 +924,7 @@ namespace noweBShip
                 }
                 if (enemyHits==15) {break;}
 
-                /*//sprawdzenie MyLocation.Plansza  SSSSSSSSSSSSSSSSSSS
+                //sprawdzenie MyLocation.Plansza  SSSSSSSSSSSSSSSSSSS
                 for (int i = 0; i<10; i++)
                 {
                     for (int j=0; j<10;j++)
@@ -934,7 +934,7 @@ namespace noweBShip
                     Console.WriteLine();
                 }
                 Console.ReadKey();
-                // SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
+                // SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
                 Console.Clear();
                 Console.WriteLine("         Player vs. AI battleship game");
