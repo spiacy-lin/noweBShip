@@ -253,7 +253,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1>=0 && !MyLocation.Plansza[ex,ey-1]) 
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -267,49 +267,49 @@ namespace noweBShip
                             // mozna zacząć wnioskować, mamy dwa hity w carhits
                             if (carhits[0] != carhits[2]) //vertical
                             {
-                                if (!MyLocation.Plansza[carhits[0]+1,carhits[1]])
+                                if (carhits[0]+1 <10 && !MyLocation.Plansza[carhits[0]+1,carhits[1]])
                                 {
                                     ex = carhits[0]+1;
                                     ey = carhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[0]-1,carhits[1]])
+                                else if (carhits[0]-1 >=0 && !MyLocation.Plansza[carhits[0]-1,carhits[1]])
                                 {
                                     ex = carhits[0]- 1;
                                     ey = carhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[2]+1,carhits[3]])
+                                else if (carhits[2]+1 <10 && !MyLocation.Plansza[carhits[2]+1,carhits[3]])
                                 {
                                     ex = carhits[2]+1;
                                     ey = carhits[3];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[2]-1,carhits[3]])
+                                else if (carhits[2]-1 >=0 && !MyLocation.Plansza[carhits[2]-1,carhits[3]])
                                 {
                                     ex = carhits[2]- 1;
                                     ey = carhits[3];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[4]+1,carhits[5]])
+                                else if (carhits[4]+1 <10 && !MyLocation.Plansza[carhits[4]+1,carhits[5]])
                                 {
                                     ex = carhits[4]+1;
                                     ey = carhits[5];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[4]-1,carhits[5]])
+                                else if (carhits[4]-1 >=0 && !MyLocation.Plansza[carhits[4]-1,carhits[5]])
                                 {
                                     ex = carhits[4]- 1;
                                     ey = carhits[5];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[6]+1,carhits[7]])
+                                else if (carhits[6]+1 <10 && !MyLocation.Plansza[carhits[6]+1,carhits[7]])
                                 {
                                     ex = carhits[6]+1;
                                     ey = carhits[7];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (carhits[6]- 1 >=0 && MyLocation.Plansza[carhits[6]- 1,carhits[7]])
                                 {
                                     ex = carhits[6]- 1;
                                     ey = carhits[7];
@@ -319,49 +319,49 @@ namespace noweBShip
                             }
                             else  //horizontal
                             {
-                                if (!MyLocation.Plansza[carhits[0],carhits[1]+1])
+                                if (carhits[1]+1 <10 && !MyLocation.Plansza[carhits[0],carhits[1]+1])
                                 {
                                     ex = carhits[0];
                                     ey = carhits[1]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[0],carhits[1]-1])
+                                else if (carhits[1]-1 >=0 && !MyLocation.Plansza[carhits[0],carhits[1]-1])
                                 {
                                     ex = carhits[0];
                                     ey = carhits[1]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[2],carhits[3]+1])
+                                else if (carhits[3]+1 <10 && !MyLocation.Plansza[carhits[2],carhits[3]+1])
                                 {
                                     ex = carhits[2];
                                     ey = carhits[3]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[2],carhits[3]-1])
+                                else if (carhits[3]-1 >=0 && !MyLocation.Plansza[carhits[2],carhits[3]-1])
                                 {
                                     ex = carhits[2];
                                     ey = carhits[3]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[4],carhits[5]+1])
+                                else if (carhits[5]+1 <10 && !MyLocation.Plansza[carhits[4],carhits[5]+1])
                                 {
                                     ex = carhits[4];
                                     ey = carhits[5]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[4],carhits[5]-1])
+                                else if (carhits[5]-1 >=0 && !MyLocation.Plansza[carhits[4],carhits[5]-1])
                                 {
                                     ex = carhits[4];
                                     ey = carhits[5]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[carhits[6],carhits[7]+1])
+                                else if (carhits[7]+1 <10 && !MyLocation.Plansza[carhits[6],carhits[7]+1])
                                 {
                                     ex = carhits[6];
                                     ey = carhits[7]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (carhits[7]-1>=0 && MyLocation.Plansza[carhits[6],carhits[7]-1])
                                 {
                                     ex = carhits[6];
                                     ey = carhits[7]-1;
@@ -396,7 +396,7 @@ namespace noweBShip
                                     ey = carhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (carhits[1]-1>=0 && !MyLocation.Plansza[carhits[0], carhits[1]-1])
                                 {
                                     ex = carhits[0];
                                     ey = carhits[1]-1;
@@ -434,7 +434,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1 >=0 && !MyLocation.Plansza[ex,ey-1])
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -448,37 +448,37 @@ namespace noweBShip
                             // mozna zacząć wnioskować, mamy dwa hity w bathits
                             if (bathits[0] != bathits[2]) //vertical
                             {
-                                if (!MyLocation.Plansza[bathits[0]+1,bathits[1]])
+                                if (bathits[0]+1 < 10 && !MyLocation.Plansza[bathits[0]+1,bathits[1]])
                                 {
                                     ex = bathits[0]+1;
                                     ey = bathits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[0]-1,bathits[1]])
+                                else if (bathits[0]-1 >=0 && !MyLocation.Plansza[bathits[0]-1,bathits[1]])
                                 {
                                     ex = bathits[0]- 1;
                                     ey = bathits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[2]+1,bathits[3]])
+                                else if (bathits[2]+1 <10 && !MyLocation.Plansza[bathits[2]+1,bathits[3]])
                                 {
                                     ex = bathits[2]+1;
                                     ey = bathits[3];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[2]-1,bathits[3]])
+                                else if (bathits[2]-1 >=0 && !MyLocation.Plansza[bathits[2]-1,bathits[3]])
                                 {
                                     ex = bathits[2]- 1;
                                     ey = bathits[3];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                 else if (!MyLocation.Plansza[bathits[4]+1,bathits[5]])
+                                 else if (bathits[4]+1 <10 && !MyLocation.Plansza[bathits[4]+1,bathits[5]])
                                 {
                                     ex = bathits[4]+1;
                                     ey = bathits[5];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (bathits[4]- 1>=0 && !MyLocation.Plansza[bathits[4]- 1,bathits[5]])
                                 {
                                     ex = bathits[4]- 1;
                                     ey = bathits[5];
@@ -488,37 +488,37 @@ namespace noweBShip
                             }
                             else  //horizontal
                             {
-                                if (!MyLocation.Plansza[bathits[0],bathits[1]+1])
+                                if (bathits[1]+1 <10 && !MyLocation.Plansza[bathits[0],bathits[1]+1])
                                 {
                                     ex = bathits[0];
                                     ey = bathits[1]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[0],bathits[1]-1])
+                                else if (bathits[1]-1 >= 0 && !MyLocation.Plansza[bathits[0],bathits[1]-1])
                                 {
                                     ex = bathits[0];
                                     ey = bathits[1]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[2],bathits[3]+1])
+                                else if (bathits[3]+1<10 && !MyLocation.Plansza[bathits[2],bathits[3]+1])
                                 {
                                     ex = bathits[2];
                                     ey = bathits[3]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[2],bathits[3]-1])
+                                else if (bathits[3]-1 >=0 && !MyLocation.Plansza[bathits[2],bathits[3]-1])
                                 {
                                     ex = bathits[2];
                                     ey = bathits[3]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[bathits[4],bathits[5]+1])
+                                else if (bathits[5]+1 <10 && !MyLocation.Plansza[bathits[4],bathits[5]+1])
                                 {
                                     ex = bathits[4];
                                     ey = bathits[5]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (bathits[5]-1 >=0 && MyLocation.Plansza[bathits[4],bathits[5]-1])
                                 {
                                     ex = bathits[4];
                                     ey = bathits[5]-1;
@@ -553,7 +553,7 @@ namespace noweBShip
                                     ey = bathits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (bathits[1]-1>=0 && !MyLocation.Plansza[bathits[0],bathits[1]-1])
                                 {
                                     ex = bathits[0];
                                     ey = bathits[1]-1;
@@ -591,7 +591,7 @@ namespace noweBShip
                                         ex = ex-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                     }
-                                    else 
+                                    else if (ey-1 >=0 && !MyLocation.Plansza[ex,ey-1])
                                     {
                                         ey = ey-1;
                                         MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
@@ -605,25 +605,25 @@ namespace noweBShip
                             // mozna zacząć wnioskować, mamy dwa hity w cruhits
                             if (cruhits[0] != cruhits[2]) //vertical
                             {
-                                if (!MyLocation.Plansza[cruhits[0]+1,cruhits[1]])
+                                if (cruhits[0]+1 <10 && !MyLocation.Plansza[cruhits[0]+1,cruhits[1]])
                                 {
                                     ex = cruhits[0]+1;
                                     ey = cruhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[cruhits[0]-1,cruhits[1]])
+                                else if (cruhits[0]-1 >=0 && !MyLocation.Plansza[cruhits[0]-1,cruhits[1]])
                                 {
                                     ex = cruhits[0]- 1;
                                     ey = cruhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[cruhits[2]+1,cruhits[3]])
+                                else if (cruhits[2]+1 <10 && !MyLocation.Plansza[cruhits[2]+1,cruhits[3]])
                                 {
                                     ex = cruhits[2]+1;
                                     ey = cruhits[3];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (cruhits[2]- 1 >=0 && MyLocation.Plansza[cruhits[2]- 1,cruhits[3]])
                                 {
                                     ex = cruhits[2]- 1;
                                     ey = cruhits[3];
@@ -633,25 +633,25 @@ namespace noweBShip
                             }
                             else  //horizontal
                             {
-                                if (!MyLocation.Plansza[cruhits[0],cruhits[1]+1])
+                                if (cruhits[1]+1 <10 && !MyLocation.Plansza[cruhits[0],cruhits[1]+1])
                                 {
                                     ex = cruhits[0];
                                     ey = cruhits[1]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[cruhits[0],cruhits[1]-1])
+                                else if (cruhits[1]-1 >=0 && !MyLocation.Plansza[cruhits[0],cruhits[1]-1])
                                 {
                                     ex = cruhits[0];
                                     ey = cruhits[1]-1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else if (!MyLocation.Plansza[cruhits[2],cruhits[3]+1])
+                                else if (cruhits[3]+1 <10 && !MyLocation.Plansza[cruhits[2],cruhits[3]+1])
                                 {
                                     ex = cruhits[2];
                                     ey = cruhits[3]+1;
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (cruhits[3]-1 >=0 && !MyLocation.Plansza[cruhits[2],cruhits[3]-1])
                                 {
                                     ex = cruhits[2];
                                     ey = cruhits[3]-1;
@@ -686,7 +686,7 @@ namespace noweBShip
                                     ey = cruhits[1];
                                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
                                 }
-                                else 
+                                else if (cruhits[1]-1>=0 && !MyLocation.Plansza[cruhits[0],cruhits[1]-1])
                                 {
                                     ex = cruhits[0];
                                     ey = cruhits[1]-1;
@@ -755,16 +755,22 @@ namespace noweBShip
                     ex = Int32.Parse(sex);
                     string sey = Console.ReadLine();
                     ey = Int32.Parse(sey);
-                    
-                    /*ex = random.Next(10); //losowanie koordynat
-                    ey = random.Next(10);
-                    while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                    /*
+                    if (enemyHits<16)
                     {
-                        ex = random.Next(10);
+                        ex = random.Next(10); //losowanie koordynat
                         ey = random.Next(10);
+                        while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                        {
+                            ex = random.Next(10);
+                            ey = random.Next(10);
+                        }
+                        MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
+                    }
+                    else
+                    {
+                       
                     }*/
-                    MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
-
                 }
                                 
                 MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
@@ -774,6 +780,7 @@ namespace noweBShip
                 {
                     hCarrier = true;
                     MyLocation.Ships[0].Width--;
+                    enemyHits++;
                     if (MyLocation.Ships[0].Width==0)
                     {
                         foreach (string item in MyLocation.Ships[0].Cover)
@@ -782,24 +789,17 @@ namespace noweBShip
                             int b = Transformacja3(item[1]);
                             MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
                             hCarrier = false;
-                        }
-                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
-                        foreach (string item in MyLocation.Ships[0].Cover)
-                        {
-                            char first = item[0];
-                            char second = item[1];
-                            int h1 = Transformacja2(first);
-                            int h2 = Transformacja3(second);
-                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                        
+                            if ((a>0 && a<9) && (b>0 && b<9))
                             {
-                                MyLocation.Plansza[h1+1,h2-1] = true;
-                                MyLocation.Plansza[h1+1,h2] = true;
-                                MyLocation.Plansza[h1+1,h2+1] = true;
-                                MyLocation.Plansza[h1,h2-1] = true;
-                                MyLocation.Plansza[h1,h2+1] = true;
-                                MyLocation.Plansza[h1-1,h2-1] = true;
-                                MyLocation.Plansza[h1-1,h2] = true;
-                                MyLocation.Plansza[h1-1,h2+1] = true;
+                                MyLocation.Plansza[a+1,b-1] = true;
+                                MyLocation.Plansza[a+1,b] = true;
+                                MyLocation.Plansza[a+1,b+1] = true;
+                                MyLocation.Plansza[a,b-1] = true;
+                                MyLocation.Plansza[a,b+1] = true;
+                                MyLocation.Plansza[a-1,b-1] = true;
+                                MyLocation.Plansza[a-1,b] = true;
+                                MyLocation.Plansza[a-1,b+1] = true;
                             }
                         }
                     }
@@ -808,6 +808,7 @@ namespace noweBShip
                 {
                     hBattleship = true;
                     MyLocation.Ships[1].Width--;
+                    enemyHits++;
                     if (MyLocation.Ships[1].Width==0)
                     {
                         foreach (string item in MyLocation.Ships[1].Cover)
@@ -816,24 +817,17 @@ namespace noweBShip
                             int b = Transformacja3(item[1]);
                             MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
                             hBattleship = false;
-                        }
-                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
-                        foreach (string item in MyLocation.Ships[1].Cover)
-                        {
-                            char first = item[0];
-                            char second = item[1];
-                            int h1 = Transformacja2(first);
-                            int h2 = Transformacja3(second);
-                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                        
+                            if ((a>0 && a<9) && (b>0 && b<9))
                             {
-                                MyLocation.Plansza[h1+1,h2-1] = true;
-                                MyLocation.Plansza[h1+1,h2] = true;
-                                MyLocation.Plansza[h1+1,h2+1] = true;
-                                MyLocation.Plansza[h1,h2-1] = true;
-                                MyLocation.Plansza[h1,h2+1] = true;
-                                MyLocation.Plansza[h1-1,h2-1] = true;
-                                MyLocation.Plansza[h1-1,h2] = true;
-                                MyLocation.Plansza[h1-1,h2+1] = true;
+                                MyLocation.Plansza[a+1,b-1] = true;
+                                MyLocation.Plansza[a+1,b] = true;
+                                MyLocation.Plansza[a+1,b+1] = true;
+                                MyLocation.Plansza[a,b-1] = true;
+                                MyLocation.Plansza[a,b+1] = true;
+                                MyLocation.Plansza[a-1,b-1] = true;
+                                MyLocation.Plansza[a-1,b] = true;
+                                MyLocation.Plansza[a-1,b+1] = true;
                             }
                                
                         }
@@ -844,6 +838,7 @@ namespace noweBShip
                 {
                     hCruiser = true;
                     MyLocation.Ships[2].Width--;
+                    enemyHits++;
                     if (MyLocation.Ships[2].Width==0)
                     {
                         foreach (string item in MyLocation.Ships[2].Cover)
@@ -852,34 +847,29 @@ namespace noweBShip
                             int b = Transformacja3(item[1]);
                             MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
                             hCruiser = false;
-                        }
-                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
-                        foreach (string item in MyLocation.Ships[2].Cover)
-                        {
-                            char first = item[0];
-                            char second = item[1];
-                            int h1 = Transformacja2(first);
-                            int h2 = Transformacja3(second);
-                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                        
+                            if ((a>0 && a<9) && (b>0 && b<9))
                             {
-                                MyLocation.Plansza[h1+1,h2-1] = true;
-                                MyLocation.Plansza[h1+1,h2] = true;
-                                MyLocation.Plansza[h1+1,h2+1] = true;
-                                MyLocation.Plansza[h1,h2-1] = true;
-                                MyLocation.Plansza[h1,h2+1] = true;
-                                MyLocation.Plansza[h1-1,h2-1] = true;
-                                MyLocation.Plansza[h1-1,h2] = true;
-                                MyLocation.Plansza[h1-1,h2+1] = true;
+                                MyLocation.Plansza[a+1,b-1] = true;
+                                MyLocation.Plansza[a+1,b] = true;
+                                MyLocation.Plansza[a+1,b+1] = true;
+                                MyLocation.Plansza[a,b-1] = true;
+                                MyLocation.Plansza[a,b+1] = true;
+                                MyLocation.Plansza[a-1,b-1] = true;
+                                MyLocation.Plansza[a-1,b] = true;
+                                MyLocation.Plansza[a-1,b+1] = true;
                             }
                                 
                         }
                             
                     }
+
                 }
                 else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.SUBMARINE)
                 {
                     hSubmarine = true;
                     MyLocation.Ships[3].Width--;
+                    enemyHits++;
                     if (MyLocation.Ships[3].Width==0)
                     {
                         foreach (string item in MyLocation.Ships[3].Cover)
@@ -888,24 +878,17 @@ namespace noweBShip
                             int b = Transformacja3(item[1]);
                             MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
                             hSubmarine = false;
-                        }
-                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
-                        foreach (string item in MyLocation.Ships[4].Cover)
-                        {
-                            char first = item[0];
-                            char second = item[1];
-                            int h1 = Transformacja2(first);
-                            int h2 = Transformacja3(second);
-                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+
+                            if ((a>0 && a<9) && (b>0 && b<9))
                             {
-                                MyLocation.Plansza[h1+1,h2-1] = true;
-                                MyLocation.Plansza[h1+1,h2] = true;
-                                MyLocation.Plansza[h1+1,h2+1] = true;
-                                MyLocation.Plansza[h1,h2-1] = true;
-                                MyLocation.Plansza[h1,h2+1] = true;
-                                MyLocation.Plansza[h1-1,h2-1] = true;
-                                MyLocation.Plansza[h1-1,h2] = true;
-                                MyLocation.Plansza[h1-1,h2+1] = true;
+                                MyLocation.Plansza[a+1,b-1] = true;
+                                MyLocation.Plansza[a+1,b] = true;
+                                MyLocation.Plansza[a+1,b+1] = true;
+                                MyLocation.Plansza[a,b-1] = true;
+                                MyLocation.Plansza[a,b+1] = true;
+                                MyLocation.Plansza[a-1,b-1] = true;
+                                MyLocation.Plansza[a-1,b] = true;
+                                MyLocation.Plansza[a-1,b+1] = true;
                             }
                                 
                         }
@@ -914,8 +897,8 @@ namespace noweBShip
                 }
                 else if (MyOcean.Board[ex,ey].GetBack()== Square.Mark.DESTROYER)
                 {
-                    //hDestroyer = true;
                     MyLocation.Ships[4].Width--;
+                    enemyHits++;
                     if (MyLocation.Ships[4].Width==0)
                     {
                         foreach (string item in MyLocation.Ships[4].Cover)
@@ -923,31 +906,36 @@ namespace noweBShip
                             int a = Transformacja2(item[0]);
                             int b = Transformacja3(item[1]);
                             MyOcean.Board[a,b].SetFront(Square.Mark.SUNK);
-                            //hDestroyer = false;
-                        }
-                        // zazanaczyć wszystkie pola Planszy w otoczeniu Carrier
-                        foreach (string item in MyLocation.Ships[4].Cover)
-                        {
-                            char first = item[0];
-                            char second = item[1];
-                            int h1 = Transformacja2(first);
-                            int h2 = Transformacja3(second);
-                            if ((h1>0 && h1<9) && (h2>0 && h2<9))
+                                                
+                            if ((a>0 && a<9) && (b>0 && b<9))
                             {
-                                MyLocation.Plansza[h1+1,h2-1] = true;
-                                MyLocation.Plansza[h1+1,h2] = true;
-                                MyLocation.Plansza[h1+1,h2+1] = true;
-                                MyLocation.Plansza[h1,h2-1] = true;
-                                MyLocation.Plansza[h1,h2+1] = true;
-                                MyLocation.Plansza[h1-1,h2-1] = true;
-                                MyLocation.Plansza[h1-1,h2] = true;
-                                MyLocation.Plansza[h1-1,h2+1] = true;
+                                MyLocation.Plansza[a+1,b-1] = true;
+                                MyLocation.Plansza[a+1,b] = true;
+                                MyLocation.Plansza[a+1,b+1] = true;
+                                MyLocation.Plansza[a,b-1] = true;
+                                MyLocation.Plansza[a,b+1] = true;
+                                MyLocation.Plansza[a-1,b-1] = true;
+                                MyLocation.Plansza[a-1,b] = true;
+                                MyLocation.Plansza[a-1,b+1] = true;
                             }
                                
                         }
-                            
                     }
                 }
+                if (enemyHits==15) {break;}
+
+                //sprawdzenie MyLocation.Plansza  SSSSSSSSSSSSSSSSSSS
+                for (int i = 0; i<10; i++)
+                {
+                    for (int j=0; j<10;j++)
+                    {
+                        Console.Write(MyLocation.Plansza[i,j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+                Console.ReadKey();
+                // SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
                 Console.Clear();
                 Console.WriteLine("         Player vs. AI battleship game");
                 Console.WriteLine();
