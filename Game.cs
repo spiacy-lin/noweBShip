@@ -999,27 +999,42 @@ namespace noweBShip
                 }
                 else   // nie ma częściowego trafienia
                 { 
-                    
+                    /*
                     // Testing TOOL - replicate random hit
                     Console.WriteLine("Testing tool to avoid random hit");
                     string sex = Console.ReadLine();
                     ex = Int32.Parse(sex);
                     string sey = Console.ReadLine();
                     ey = Int32.Parse(sey);
+                    //Testing TOOL  TOOL TOOL*/
                     
                     
-                   /* // Random hit generator
-                    ex = random.Next(10); //losowanie koordynat
-                    ey = random.Next(10);
-                    while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                   // Random hit generator
+                    if (enemyHits>9)
                     {
-                        ex = random.Next(10);
+                        ex = random.Next(10); //losowanie koordynat
                         ey = random.Next(10);
-                    }*/
-                    
-                    
+                        while (MyLocation.Plansza[ex,ey])  //losuje aż znajdzie wolne
+                        {
+                            ex = random.Next(10);
+                            ey = random.Next(10);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 9; i >= 0; i--)
+                        {
+                            for (int j =0; j<10; j++)
+                            {
+                                if (!MyLocation.Plansza[i,j])
+                                {
+                                    ex = i;
+                                    ey = j;
+                                }
+                            }
+                        }
+                    }
                     MyLocation.Plansza[ex,ey] = true;   // zablokowanie tego Square
-                    
                 }
                                 
                 MyOcean.Board[ex,ey].upsideDown();  //przewrotka na myOcean respective Square
